@@ -69,7 +69,7 @@ def create_solar_system(time, show_labels, speed):
 def main():
     st.title("🌌 Solar System Simulation")
     tidio_script = """<script src="//code.tidio.co/uvigojjdgifz1gfz6sjs338pa1f8hnnc.js" async></script>"""
-    st.markdown("Explore the solar system in 3D! Adjust the settings to control the simulation.")
+    st.markdown("Explore the solar system in 3D!")
 
     # Sidebar controls
     st.sidebar.header("Controls")
