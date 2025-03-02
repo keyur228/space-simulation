@@ -84,19 +84,9 @@ def main():
     # Embed chat widget
     st.sidebar.header("Chat with Us")
     chat_html = """
-    <script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/67c46f4b93258c190db04199/1ilbl5g8i';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
-    </script>
+    <iframe src="https://embed.tawk.to/67c46f4b93258c190db04199/1ilbl5g8i" width="100%" height="400" frameborder="0"></iframe>
     """
-    st.components.v1.html(chat_html, height=0, scrolling=False)
+    st.markdown(chat_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
