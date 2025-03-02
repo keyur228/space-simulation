@@ -1,19 +1,7 @@
 import streamlit as st
 import plotly.graph_objects as go
 import numpy as np
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/67c46f4b93258c190db04199/1ilbl5g8i';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+
 # Constants for scaled-down distances and sizes (in AU and Earth radii)
 PLANET_DATA = {
     "Sun": {"radius": 0.1, "distance": 0, "color": "yellow", "orbital_speed": 0},
@@ -27,7 +15,7 @@ PLANET_DATA = {
     "Neptune": {"radius": 0.03, "distance": 30.05, "color": "blue", "orbital_speed": 5.43},
 }
 
-# Starfield background
+@st.cache_data  # Cache starfield for performance
 def create_starfield(num_stars=1000):
     star_x = np.random.uniform(-50, 50, num_stars)
     star_y = np.random.uniform(-50, 50, num_stars)
@@ -39,20 +27,15 @@ def create_starfield(num_stars=1000):
         name="Stars"
     )
 
-# Create 3D solar system visualization
 def create_solar_system(time, show_labels, speed):
     fig = go.Figure()
+    fig.add_trace(create_starfield())  # Add starfield
 
-    # Add starfield
-    fig.add_trace(create_starfield())
-
-    # Add Sun and planets
     for planet, data in PLANET_DATA.items():
         theta = time * data["orbital_speed"] * speed
         x = data["distance"] * np.cos(np.radians(theta))
         y = data["distance"] * np.sin(np.radians(theta))
         z = 0
-
         fig.add_trace(go.Scatter3d(
             x=[x], y=[y], z=[z],
             mode="markers+text" if show_labels else "markers",
@@ -62,7 +45,6 @@ def create_solar_system(time, show_labels, speed):
             name=planet
         ))
 
-    # Update layout for better visualization
     fig.update_layout(
         scene=dict(
             xaxis=dict(title="X (AU)", range=[-35, 35]),
@@ -74,13 +56,10 @@ def create_solar_system(time, show_labels, speed):
         margin=dict(l=0, r=0, b=0, t=0),
         showlegend=False,
     )
-
     return fig
 
-# Streamlit app
 def main():
     st.title("🌌 Solar System Simulation")
-    tidio_script = """<script src="//code.tidio.co/uvigojjdgifz1gfz6sjs338pa1f8hnnc.js" async></script>"""
     st.markdown("Explore the solar system in 3D!")
 
     # Sidebar controls
@@ -102,14 +81,22 @@ def main():
     st.sidebar.write(f"Distance from Sun: {planet_info['distance']} AU")
     st.sidebar.write(f"Orbital Speed: {planet_info['orbital_speed']} km/s")
 
-    # Learn More section
-    if st.sidebar.checkbox("Learn More"):
-        st.sidebar.write("### Fun Facts")
-        st.sidebar.write("""
-        - The Sun contains 99.86% of the mass in the solar system.
-        - Jupiter is the largest planet and has the shortest day.
-        - Neptune is the farthest planet from the Sun.
-        """)
+    # Embed chat widget
+    st.sidebar.header("Chat with Us")
+    chat_html = """
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/67c46f4b93258c190db04199/1ilbl5g8i';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    """
+    st.components.v1.html(chat_html, height=0, scrolling=False)
 
 if __name__ == "__main__":
     main()
