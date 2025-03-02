@@ -1,6 +1,7 @@
 import streamlit as st
 import plotly.graph_objects as go
 import numpy as np
+import streamlit.components.v1 as components
 
 # Constants for scaled-down distances and sizes (in AU and Earth radii)
 PLANET_DATA = {
@@ -54,7 +55,7 @@ def create_solar_system(time, show_labels, speed):
     )
     return fig
 
-def simulation_page():
+def main():
     st.title("🌌 Solar System Simulation")
     st.sidebar.header("Controls")
     show_labels = st.sidebar.checkbox("Show Planet Labels", value=True)
@@ -62,11 +63,9 @@ def simulation_page():
     time = st.sidebar.slider("Time (Years)", 0, 100, 0)
     fig = create_solar_system(time, show_labels, speed)
     st.plotly_chart(fig, use_container_width=True)
-
-def chatbot_page():
-    st.title("💬 Chatbot")
-    st.write("Chat with our space assistant!")
-    chat_widget = """
+    
+    # Tawk.to Chatbot Widget
+    tawk_script = """
     <script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
     (function(){
@@ -79,15 +78,7 @@ def chatbot_page():
     })();
     </script>
     """
-    st.markdown(chat_widget, unsafe_allow_html=True)
-
-def main():
-    st.sidebar.title("Navigation")
-    page = st.sidebar.radio("Go to", ["Simulation", "Chatbot"])
-    if page == "Simulation":
-        simulation_page()
-    else:
-        chatbot_page()
+    components.html(tawk_script, height=600, scrolling=True)
 
 if __name__ == "__main__":
     main()
