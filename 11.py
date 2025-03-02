@@ -81,13 +81,22 @@ def main():
     st.sidebar.write(f"Distance from Sun: {planet_info['distance']} AU")
     st.sidebar.write(f"Orbital Speed: {planet_info['orbital_speed']} km/s")
 
-    # Embed chat widget using iframe
-    st.sidebar.header("Chat with Us")
-    chat_html = """
-    <iframe src="https://tawk.to/chat/67c46f4b93258c190db04199/1ilbl5g8i" 
-            width="100%" height="400" frameborder="0"></iframe>
+    # Embed Tawk.to chat widget script
+    st.sidebar.header("Chat Support")
+    chat_widget = """
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/67c46f4b93258c190db04199/1ilbl5g8i';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
     """
-    st.markdown(chat_html, unsafe_allow_html=True)
+    st.markdown(chat_widget, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
