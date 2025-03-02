@@ -67,10 +67,10 @@ def chatbot_page():
     st.title("💬 Space Chatbot")
     st.write("Ask me anything about space!")
 
-    # Embed the full Tawk.to chatbot page using an iframe
+    # Replace YOUR_WIDGET_ID with your actual Tawk.to widget ID
     tawk_iframe = """
     <iframe
-        src="https://tawk.to/chat/YOUR_TAWKTO_WIDGET_ID/default"
+        src="https://tawk.to/chat/YOUR_WIDGET_ID/default"
         width="100%"
         height="600px"
         style="border: none;">
