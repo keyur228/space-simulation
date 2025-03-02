@@ -55,7 +55,7 @@ def create_solar_system(time, show_labels, speed):
     )
     return fig
 
-def main():
+def solar_system_page():
     st.title("🌌 Solar System Simulation")
     st.sidebar.header("Controls")
     show_labels = st.sidebar.checkbox("Show Planet Labels", value=True)
@@ -63,6 +63,10 @@ def main():
     time = st.sidebar.slider("Time (Years)", 0, 100, 0)
     fig = create_solar_system(time, show_labels, speed)
     st.plotly_chart(fig, use_container_width=True)
+
+def chatbot_page():
+    st.title("💬 Space Chatbot")
+    st.write("Ask me anything about space!")
     
     # Tawk.to Chatbot Widget with Proper Positioning
     tawk_script = """
@@ -87,6 +91,15 @@ def main():
     </style>
     """
     components.html(tawk_script, height=0, width=0)
+
+def main():
+    st.sidebar.title("Navigation")
+    page = st.sidebar.radio("Go to", ["Solar System Simulation", "Chatbot"])
+    
+    if page == "Solar System Simulation":
+        solar_system_page()
+    elif page == "Chatbot":
+        chatbot_page()
 
 if __name__ == "__main__":
     main()
