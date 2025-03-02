@@ -64,7 +64,7 @@ def main():
     fig = create_solar_system(time, show_labels, speed)
     st.plotly_chart(fig, use_container_width=True)
     
-    # Tawk.to Chatbot Widget
+    # Tawk.to Chatbot Widget with Proper Positioning
     tawk_script = """
     <script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -77,8 +77,16 @@ def main():
     s0.parentNode.insertBefore(s1,s0);
     })();
     </script>
+    <style>
+        #tawkchat-container {
+            position: fixed !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            z-index: 1000 !important;
+        }
+    </style>
     """
-    components.html(tawk_script, height=600, scrolling=True)
+    components.html(tawk_script, height=0, width=0)
 
 if __name__ == "__main__":
     main()
