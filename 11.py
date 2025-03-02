@@ -1,7 +1,19 @@
 import streamlit as st
 import plotly.graph_objects as go
 import numpy as np
-
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/67c46f4b93258c190db04199/1ilbl5g8i';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
 # Constants for scaled-down distances and sizes (in AU and Earth radii)
 PLANET_DATA = {
     "Sun": {"radius": 0.1, "distance": 0, "color": "yellow", "orbital_speed": 0},
