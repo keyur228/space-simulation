@@ -68,8 +68,9 @@ def chatbot_page():
     st.title("💬 Space Chatbot")
     st.write("Ask me anything about space!")
     
-    # Tawk.to Chatbot Widget with Proper Positioning
+    # Tawk.to Chatbot Widget with Proper Embedding
     tawk_script = """
+    <!--Start of Tawk.to Script-->
     <script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
     (function(){
@@ -81,15 +82,9 @@ def chatbot_page():
     s0.parentNode.insertBefore(s1,s0);
     })();
     </script>
-    <style>
-        #tawkchat-container {
-            position: fixed !important;
-            bottom: 20px !important;
-            right: 20px !important;
-            z-index: 1000 !important;
-        }
-    </style>
+    <!--End of Tawk.to Script-->
     """
+    # Use components.html to embed the script
     components.html(tawk_script, height=0, width=0)
 
 def main():
