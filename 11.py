@@ -15,7 +15,6 @@ PLANET_DATA = {
     "Neptune": {"radius": 0.03, "distance": 30.05, "color": "blue", "orbital_speed": 5.43},
 }
 
-@st.cache_data  # Cache starfield for performance
 def create_starfield(num_stars=1000):
     star_x = np.random.uniform(-50, 50, num_stars)
     star_y = np.random.uniform(-50, 50, num_stars)
@@ -29,22 +28,19 @@ def create_starfield(num_stars=1000):
 
 def create_solar_system(time, show_labels, speed):
     fig = go.Figure()
-    fig.add_trace(create_starfield())  # Add starfield
-
+    fig.add_trace(create_starfield())
     for planet, data in PLANET_DATA.items():
         theta = time * data["orbital_speed"] * speed
         x = data["distance"] * np.cos(np.radians(theta))
         y = data["distance"] * np.sin(np.radians(theta))
-        z = 0
         fig.add_trace(go.Scatter3d(
-            x=[x], y=[y], z=[z],
+            x=[x], y=[y], z=[0],
             mode="markers+text" if show_labels else "markers",
             marker=dict(size=data["radius"] * 100, color=data["color"]),
             text=[planet] if show_labels else [],
             textposition="top center",
             name=planet
         ))
-
     fig.update_layout(
         scene=dict(
             xaxis=dict(title="X (AU)", range=[-35, 35]),
@@ -58,31 +54,18 @@ def create_solar_system(time, show_labels, speed):
     )
     return fig
 
-def main():
+def simulation_page():
     st.title("🌌 Solar System Simulation")
-    st.markdown("Explore the solar system in 3D!")
-
-    # Sidebar controls
     st.sidebar.header("Controls")
     show_labels = st.sidebar.checkbox("Show Planet Labels", value=True)
-    speed = st.sidebar.slider("Orbit Speed", 0.1, 10.0, 1.0, help="Adjust the speed of planetary motion.")
-    time = st.sidebar.slider("Time (Years)", 0, 100, 0, help="Simulate the passage of time.")
-
-    # Display 3D solar system
+    speed = st.sidebar.slider("Orbit Speed", 0.1, 10.0, 1.0)
+    time = st.sidebar.slider("Time (Years)", 0, 100, 0)
     fig = create_solar_system(time, show_labels, speed)
     st.plotly_chart(fig, use_container_width=True)
 
-    # Planet information
-    st.sidebar.header("Planet Information")
-    selected_planet = st.sidebar.selectbox("Select a Celestial Body", list(PLANET_DATA.keys()))
-    planet_info = PLANET_DATA[selected_planet]
-    st.sidebar.write(f"**{selected_planet}**")
-    st.sidebar.write(f"Radius: {planet_info['radius']} Earth radii")
-    st.sidebar.write(f"Distance from Sun: {planet_info['distance']} AU")
-    st.sidebar.write(f"Orbital Speed: {planet_info['orbital_speed']} km/s")
-
-    # Embed Tawk.to chat widget script
-    st.sidebar.header("Chat Support")
+def chatbot_page():
+    st.title("💬 Chatbot")
+    st.write("Chat with our space assistant!")
     chat_widget = """
     <script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -97,6 +80,14 @@ def main():
     </script>
     """
     st.markdown(chat_widget, unsafe_allow_html=True)
+
+def main():
+    st.sidebar.title("Navigation")
+    page = st.sidebar.radio("Go to", ["Simulation", "Chatbot"])
+    if page == "Simulation":
+        simulation_page()
+    else:
+        chatbot_page()
 
 if __name__ == "__main__":
     main()
