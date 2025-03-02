@@ -81,10 +81,11 @@ def main():
     st.sidebar.write(f"Distance from Sun: {planet_info['distance']} AU")
     st.sidebar.write(f"Orbital Speed: {planet_info['orbital_speed']} km/s")
 
-    # Embed chat widget
+    # Embed chat widget using iframe
     st.sidebar.header("Chat with Us")
     chat_html = """
-    <iframe src="https://embed.tawk.to/67c46f4b93258c190db04199/1ilbl5g8i" width="100%" height="400" frameborder="0"></iframe>
+    <iframe src="https://tawk.to/chat/67c46f4b93258c190db04199/1ilbl5g8i" 
+            width="100%" height="400" frameborder="0"></iframe>
     """
     st.markdown(chat_html, unsafe_allow_html=True)
 
